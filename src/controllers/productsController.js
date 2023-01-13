@@ -14,12 +14,14 @@ const findById = async (req, res) => {
   return res.status(200).json(product[0]);
 };
 
-module.exports = {
-  findAll,
-  findById,
+const createProduct = async (req, res) => {
+  const { name } = req.body;
+  const id = await productsService.createProduct(name);
+  return res.status(201).json({ id, name });
 };
-// const createProduct = async (req, res) => {
-//   const { name } = req.body;
-//   const id = await productsServices.createProduct(name);
-//   return res.status(201).json({ id, name });
-// };
+  
+  module.exports = {
+    findAll,
+    findById,
+    createProduct,
+  };

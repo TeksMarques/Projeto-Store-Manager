@@ -12,13 +12,14 @@ const findById = async (id) => {
   }
   return product;
 };
-// const createProduct = async (name) => {
-//   const product = await productsModels.createProduct(name);
-//   return product;
-// };
+
+const createProduct = async (name) => {
+  const product = await productsModel.createProduct(name);
+  return product;
+};
 
 module.exports = {
   findAll,
   findById,
-  // createProduct,
+  createProduct,
 };
