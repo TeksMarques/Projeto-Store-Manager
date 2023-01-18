@@ -31,10 +31,19 @@ const deleteProduct = async (id) => {
   return true;
 };
 
+const updateProduct = async (id, name) => {
+  const [{ affectedRows }] = await connection.execute(
+    'UPDATE products SET name=? WHERE id=?',
+    [name, id],
+  );
+  return affectedRows;
+};
+
 module.exports = {
   findAll,
   findById,
   createProduct,
   maxProduct,
   deleteProduct,
+  updateProduct,
 };

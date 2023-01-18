@@ -1,4 +1,5 @@
 const productsService = require('../services/productsService');
+const { productValidate } = require('../middlewares/validations');
 
 const findAll = async (_req, res) => {
   const products = await productsService.findAll();
@@ -28,9 +29,24 @@ const deleteProduct = async (req, res) => {
   res.status(status).json(response);
 };
 
+const updateProduct = async (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  const resValidation = await productValidate(name);
+  if (resValidation) {
+    return res.status(resValidation.status).json(resValidation.response);
+  }
+  const result = await productsService.updateProduct(id, name);
+  if (!result) {
+    return res.status(404).json({ message: 'Product not found' });
+  }
+  return res.status(200).json({ id, name });
+};
+
   module.exports = {
     findAll,
     findById,
     createProduct,
     deleteProduct,
+    updateProduct,
   };
