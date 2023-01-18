@@ -23,9 +23,18 @@ const maxProduct = async () => {
   return maxId.id;
 };
 
+const deleteProduct = async (id) => {
+  await connection.execute(
+    'DELETE FROM products WHERE id=?',
+    [id],
+  );
+  return true;
+};
+
 module.exports = {
   findAll,
   findById,
   createProduct,
   maxProduct,
+  deleteProduct,
 };
